@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_account_journal_form_inherited" model="ir.ui.view">
+        <field name="name">account.journal.form.inherited</field>
+        <field name="model">account.journal</field>
+        <field name="inherit_id" ref="account.view_account_journal_form"/>
+        <field name="arch" type="xml">
+            <field name="type" position="after">
+                <field name="partner_type" attrs="{'invisible': [('type', '!=', 'cash')]}"/>
+            </field>
+        </field>
+    </record>
+    <record id="view_account_journal_tree_inherit" model="ir.ui.view">
+        <field name="name">view.account.journal.tree.inherit</field>
+        <field name="model">account.journal</field>
+        <field name="inherit_id" ref="account.view_account_journal_tree"/>
+        <field name="arch" type="xml">
+            <field name="type" position="after">
+                <field name="partner_type"/>
+            </field>
+            <field name="company_id" position="before">
+                <field name="default_account_id" optional="show"/>
+                <field name="suspense_account_id" optional="show"/>
+                <field name="profit_account_id" optional="show"/>
+                <field name="loss_account_id" optional="show"/>
+            </field>
+        </field>
+    </record>
+    <record id="view_account_journal_search_inherited" model="ir.ui.view">
+        <field name="name">view_account_journal_search_inherited</field>
+        <field name="model">account.journal</field>
+        <field name="inherit_id" ref="account.view_account_journal_search"/>
+        <field name="arch" type="xml">
+            <separator position="before">
+                <separator/>
+                <filter name="customer" string="Client" domain="[('partner_type', '=', 'customer')]"/>
+                <filter name="supplier" string="Fournisseur" domain="[('partner_type', '=', 'supplier')]"/>
+            </separator>
+        </field>
+    </record>
+</odoo>
